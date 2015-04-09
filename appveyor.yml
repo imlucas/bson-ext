@@ -10,23 +10,8 @@ environment:
   node_pre_gyp_bucket: mongodb-dx-public
   matrix:
     - nodejs_version: 0.10
-      platform: x86
-      msvs_toolset: 12
-    - nodejs_version: 0.10
-      platform: x64
-      msvs_toolset: 12
     - nodejs_version: 0.12
-      platform: x86
-      msvs_toolset: 12
-    - nodejs_version: 0.12
-      platform: x64
-      msvs_toolset: 12
     - nodejs_version: 1.6
-      platform: x86
-      msvs_toolset: 12
-    - nodejs_version: 1.6
-      platform: x64
-      msvs_toolset: 12
 
 install:
   - cmd: ECHO "INSTALL:"
@@ -49,11 +34,35 @@ install:
   #- cmd: IF not x%COMMIT_MSG:[publish binary]=%==x%COMMIT_MSG% SET PUBLISH_BINARY=true
   - cmd: ECHO "PUBLISH_BINARY:"
   - cmd: ECHO %PUBLISH_BINARY%
-  - cmd: ECHO "BUILDING:"
+  - cmd: git clone https://github.com/marcelklehr/nodist.git c:\nodist 2>&1
+  - cmd: SET NODIST_X64=0
+  - cmd: call nodist update
+  - cmd: call nodist stable
+  - cmd: ECHO "BUILDING ia32 version:"
   - cmd: npm install --build-from-source
   - cmd: SET PATH=%cd%\node_modules\.bin\;%PATH%
-  - cmd: ECHO "PUBLISH package:"
+  - cmd: node serialport.js
+  - cmd: ECHO "PUBLISH ia32 package:"
+  - cmd: npm install aws-sdk
   - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
+  - cmd: node-pre-gyp clean
+  - cmd: node-gyp clean
+  - cmd: rmdir /q /s node_modules
+  - cmd: ECHO "INSTALLING x64 node.js:"
+  # We add newest MSBuild so we can use the correct libs for the x64 version
+  - cmd: SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
+  - cmd: SET PATH=C:\python27;%PATH%
+  - cmd: set NODIST_X64=1
+  - cmd: call nodist update
+  - cmd: call nodist stable
+  - cmd: npm install -g node-gyp
+  - cmd: ECHO "BUILDING x64 version:"
+  - cmd: npm install --build-from-source --msvs_version=2013
+  - cmd: ECHO "PUBLISH package:"
+  - cmd: npm install aws-sdk
+  - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
+  - cmd: node-pre-gyp clean
+  - cmd: node-gyp clean
 
 # on_success:
 #   # test installing from binary package works
