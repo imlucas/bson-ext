@@ -17,6 +17,8 @@ before_install:
 install:
 - npm install --build-from-source
 before_script:
+- npm run available-binaries
+- npm run binary-info
 - echo "Publishing native platform Binary Package? ->" $PUBLISH_BINARY
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
 - node-pre-gyp clean
@@ -31,8 +33,6 @@ script:
 - if [[ "$platform" == 'linux' ]]; then CC=gcc-4.6 CXX=g++-4.6 npm install --build-from-source;
   else npm install --build-from-source; fi
 - npm test
-- npm run available-binaries
-- npm run binary-info
 - echo "Publishing x86 32bit Binary Package? ->" $PUBLISH_BINARY
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
 after_success:
