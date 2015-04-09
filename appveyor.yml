@@ -37,7 +37,10 @@ install:
   - cmd: ECHO "BUILDING ia32 version:"
   - cmd: npm install --build-from-source
   - cmd: SET PATH=%cd%\node_modules\.bin\;%PATH%
-  - cmd: npm test
+  - cmd: ECHO "AVAILABLE BINARIES:"
+  - cmd: npm run available-binaries
+  - cmd: ECHO "BINARY INFO:"
+  - cmd: npm run binary-info
   - cmd: ECHO "PUBLISH ia32 package:"
   - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
   - cmd: node-pre-gyp clean
@@ -58,8 +61,8 @@ install:
 #   - cmd: ECHO "Try installing from binary:"
 #   - cmd: IF %PUBLISH_BINARY%==true npm install --fallback-to-build=false
 
-matrix:
-  fast_finish: true
+# matrix:
+#   fast_finish: true
 
 cache:
   - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
