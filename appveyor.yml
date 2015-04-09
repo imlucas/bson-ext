@@ -57,11 +57,11 @@ build_script:
   - cmd: ECHO "PUBLISH package:"
   - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
 
-on_success:
-  # test installing from binary package works
-  - cmd: ECHO "ON SUCCESS:"
-  - cmd: ECHO "Try installing from binary:"
-  - cmd: IF %PUBLISH_BINARY%==true npm install --fallback-to-build=false
+# on_success:
+#   # test installing from binary package works
+#   - cmd: ECHO "ON SUCCESS:"
+#   - cmd: ECHO "Try installing from binary:"
+#   - cmd: IF %PUBLISH_BINARY%==true npm install --fallback-to-build=false
 
 matrix:
   fast_finish: true
