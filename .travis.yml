@@ -20,4 +20,4 @@ script:
 - node-pre-gyp clean
 - npm install --build-from-source
 - npm test
-- npm run publish-binary
+- node bin/publish-binary-maybe.js

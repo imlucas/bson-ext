@@ -23,7 +23,6 @@
 , "engines" :       { "node" : ">=0.8.19" }
 , "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
-    "publish-binary": "bin/publish-binary-maybe.js",
     "test" : "nodeunit ./test/node"
   }
 , "licenses" :    [ { "type" :  "Apache License, Version 2.0"

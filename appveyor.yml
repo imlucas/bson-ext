@@ -42,7 +42,7 @@ install:
   - cmd: ECHO "BINARY INFO:"
   - cmd: npm run binary-info
   - cmd: ECHO "PUBLISH ia32 package:"
-  - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
+  - cmd: IF %PUBLISH_BINARY%==true (node bin/publish-binary-maybe.js 2>&1)
   - cmd: node-pre-gyp clean
   - cmd: node-gyp clean
   - cmd: rmdir /q /s node_modules
@@ -51,7 +51,7 @@ install:
   - cmd: ECHO "BUILDING x64 version:"
   - cmd: npm install --build-from-source --msvs_version=2013
   - cmd: ECHO "PUBLISH package:"
-  - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
+  - cmd: IF %PUBLISH_BINARY%==true (node bin/publish-binary-maybe.js 2>&1)
   - cmd: node-pre-gyp clean
   - cmd: node-gyp clean
 
