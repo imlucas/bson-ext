@@ -10,18 +10,28 @@
 , "bugs" :          { "mail" :  "node-mongodb-native@googlegroups.com"
                     , "url" :   "https://github.com/christkv/bson-ext/issues" }
 , "dependencies": {
-    "nan": "1.7.0"
+    "nan": "1.7.0",
+    "node-pre-gyp": "0.5.x"
   }
 , "devDependencies": {
+    "aws-sdk": "^2.1.20",
     "nodeunit": "0.9.0"
   }
+, "bundledDependencies": ["node-pre-gyp"]
 , "main":             "./index"
 , "directories" :   { "lib" : "./lib/bson" }
 , "engines" :       { "node" : ">=0.8.19" }
 , "scripts": {
-    "install" : "(node-gyp rebuild 2> builderror.log) || (exit 0)",
+    "install": "node-pre-gyp install --fallback-to-build",
+    "publish-binary": "node_pre_gyp_bucket=mongodb-dx-public node-pre-gyp rebuild package publish",
     "test" : "nodeunit ./test/node"
-}
+  }
 , "licenses" :    [ { "type" :  "Apache License, Version 2.0"
                     , "url" :   "http://www.apache.org/licenses/LICENSE-2.0" } ]
+, "binary": {
+    "module_name": "bson",
+    "module_path": "build/Release",
+    "host": "https://bin.mongodb.org",
+    "remote_path": "/js/bson-ext/v{version}"
+  }
 }

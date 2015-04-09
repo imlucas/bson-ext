@@ -1,30 +1,75 @@
-# Test against this version of Node.js
+# @todo: Figure out which versions of windows this will actually build node-pre-gyp bins for.
+# windows arch support: 32-bit and 64-bit
+# node.js support: Latest stable version, `0.10.x`
+# iojs support: Latest stable version
 environment:
+  node_pre_gyp_accessKeyId:
+    secure: Q/MT3KqteKjl23ePjDY9V93G8Ey91LJAOcvJPdEh0i4=
+  node_pre_gyp_secretAccessKey:
+    secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
   matrix:
-  # node.js
-  - nodejs_version: "0.10"
-  - nodejs_version: "0.12"
-  # io.js
-  - nodejs_version: "1.6"
+    - nodejs_version: 0.10
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 0.10
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 0.12
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 0.12
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 1.6
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 1.6
+      platform: x64
+      msvs_toolset: 12
 
-platform:
-  - x86
-  - x64
-
-# Install scripts. (runs after repo cloning)
 install:
-  # Get the latest stable version of Node.js or io.js
-  - ps: Install-Product node $env:nodejs_version
-  # install modules
-  - npm install
+  - cmd: ECHO "INSTALL:"
+  - cmd: ECHO "APPVEYOR_REPO_COMMIT_MESSAGE ->"
+  - cmd: ECHO %APPVEYOR_REPO_COMMIT_MESSAGE%
+  - cmd: SET COMMIT_MSG="%APPVEYOR_REPO_COMMIT_MESSAGE%"
+  - cmd: SET PATH=C:\nodist\bin;%PATH%
+  - cmd: SET PUBLISH_BINARY=true
+  # Check to verify the branch is the same than latest tag, if so
+  # then we publish the binaries if everything else is successful.
+  - cmd: git describe --tags --always HEAD > _git_tag.tmp
+  - cmd: SET /p GIT_TAG=<_git_tag.tmp
+  - cmd: ECHO "LATEST LOCAL TAG:"
+  - cmd: ECHO %GIT_TAG%
+  - cmd: ECHO "APPVEYOR REPO BRANCH/TAG:"
+  - cmd: ECHO %APPVEYOR_REPO_BRANCH%
+  - cmd: DEL _git_tag.tmp
+  #- cmd: IF x%APPVEYOR_REPO_BRANCH%==x%GIT_TAG% SET PUBLISH_BINARY=true
+  # Or look for commit message containing `[publish binary]`
+  #- cmd: IF not x%COMMIT_MSG:[publish binary]=%==x%COMMIT_MSG% SET PUBLISH_BINARY=true
+  - cmd: ECHO "Env Var PUBLISH_BINARY:"
+  - cmd: ECHO %PUBLISH_BINARY%
 
-# Post-install test scripts.
-test_script:
-  # Output useful info for debugging.
-  - node --version
-  - npm --version
-  # run tests
-  - npm test
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+  - cmd: ECHO "BUILDING:"
+  - cmd: npm install
+  - cmd: ECHO "PUBLISH package:"
+  - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
 
-# Don't actually build.
-build: off
+on_success:
+  # test installing from binary package works
+  - cmd: ECHO "ON SUCCESS:"
+  - cmd: ECHO "Try installing from binary:"
+  - cmd: IF %PUBLISH_BINARY%==true npm install --fallback-to-build=false
+
+matrix:
+  fast_finish: true
+
+cache:
+  - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
+  - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
+  - node_modules -> package.json                                        # local npm modules
+
+test: OFF
+deploy: OFF
+build: OFF
