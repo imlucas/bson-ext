@@ -7,6 +7,7 @@ environment:
     secure: Q/MT3KqteKjl23ePjDY9V93G8Ey91LJAOcvJPdEh0i4=
   node_pre_gyp_secretAccessKey:
     secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
+  node_pre_gyp_bucket: mongodb-dx-public
   matrix:
     - nodejs_version: 0.10
       platform: x86
