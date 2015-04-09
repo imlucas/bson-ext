@@ -52,7 +52,8 @@ install:
 # to run your custom scripts instead of automatic MSBuild
 build_script:
   - cmd: ECHO "BUILDING:"
-  - cmd: npm install
+  - cmd: npm install --build-from-source
+  - cmd: SET PATH=%cd%\node_modules\.bin\;%PATH%
   - cmd: ECHO "PUBLISH package:"
   - cmd: IF %PUBLISH_BINARY%==true (npm run publish-binary 2>&1)
 
