@@ -42,7 +42,7 @@ install:
   - cmd: ECHO "BINARY INFO:"
   - cmd: npm run binary-info
   - cmd: ECHO "PUBLISH ia32 package:"
-  - cmd: IF %PUBLISH_BINARY%==true (node bin/publish-binary-maybe.js 2>&1)
+  - cmd: node bin/publish-binary-maybe.js
   - cmd: node-pre-gyp clean
   - cmd: node-gyp clean
   - cmd: rmdir /q /s node_modules
@@ -51,7 +51,7 @@ install:
   - cmd: ECHO "BUILDING x64 version:"
   - cmd: npm install --build-from-source --msvs_version=2013
   - cmd: ECHO "PUBLISH package:"
-  - cmd: IF %PUBLISH_BINARY%==true (node bin/publish-binary-maybe.js 2>&1)
+  - cmd: node bin/publish-binary-maybe.js
   - cmd: node-pre-gyp clean
   - cmd: node-gyp clean
 
@@ -61,8 +61,8 @@ install:
 #   - cmd: ECHO "Try installing from binary:"
 #   - cmd: IF %PUBLISH_BINARY%==true npm install --fallback-to-build=false
 
-# matrix:
-#   fast_finish: true
+matrix:
+  fast_finish: true
 
 cache:
   - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
