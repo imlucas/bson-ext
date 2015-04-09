@@ -23,9 +23,7 @@
 , "engines" :       { "node" : ">=0.8.19" }
 , "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
-    "publish-binary": "node-pre-gyp rebuild package publish",
-    "available-binaries": "node_pre_gyp_bucket=mongodb-dx-public node-pre-gyp info --loglevel=http",
-    "binary-info": "node_pre_gyp_bucket=mongodb-dx-public node-pre-gyp reveal --loglevel=http",
+    "publish-binary": "bin/publish-binary-maybe.js",
     "test" : "nodeunit ./test/node"
   }
 , "licenses" :    [ { "type" :  "Apache License, Version 2.0"

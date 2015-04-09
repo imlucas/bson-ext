@@ -9,31 +9,15 @@ env:
   - node_pre_gyp_bucket: mongodb-dx-public
   - secure: ER5LYPXeYbQz8IH7IFlEOdiUFhQZ/he6MBiKgAQlUEaY+aF48Ypd9FaXue0R6OPxqBoTVA6rFixdiAZk7U0wB9wTzyABWWUBEmFO7WMbDWfFp4cOTbtHGQREBotYv0vaC8L+qgRDqtM0ASGm8/i8duRM1ICQ7n3N01ezAlMTu8I=
   - secure: hlJfOM3VG9xYFQ+TrGWgIc5H2zowRGJBtIm710Mg5JQ4F6tpz7wzIZ+MpynGOklD8ltuLhUUSmf+doejVzCiRRADqF2ubjTRWafyqfz8p5nESz0ovw4g+rQuOOt3S4FbmKiHCZtoYEqn1N47GIaN06ucakK+rvS2DANgpSwOLPI=
-before_install:
+before_script:
 - COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
 - export PATH=./node_modules/.bin/:$PATH
 - npm install node-gyp -g
 - PUBLISH_BINARY=true
-install:
-- npm install --build-from-source
-before_script:
-- npm run available-binaries
-- npm run binary-info
-- echo "Publishing native platform Binary Package? ->" $PUBLISH_BINARY
-- if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
 - node-pre-gyp clean
 - node-gyp clean
 script:
-- INSTALL_RESULT=0
-- if [[ $PUBLISH_BINARY == true ]]; then INSTALL_RESULT=$(npm install --fallback-to-build=false > /dev/null)$? || true; fi;
-- if [[ $INSTALL_RESULT != 0 ]]; then echo "returned $INSTALL_RESULT";node-pre-gyp unpublish;false; fi
 - node-pre-gyp clean
-- if [[ "$platform" == 'linux' ]]; then sudo apt-get -y install gcc-multilib g++-multilib;
-  fi
-- if [[ "$platform" == 'linux' ]]; then CC=gcc-4.6 CXX=g++-4.6 npm install --build-from-source;
-  else npm install --build-from-source; fi
+- npm install --build-from-source
 - npm test
-- echo "Publishing x86 32bit Binary Package? ->" $PUBLISH_BINARY
-- if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
-after_success:
-- node-pre-gyp info
+- npm run publish-binary
