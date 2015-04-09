@@ -46,11 +46,8 @@ install:
   #- cmd: IF x%APPVEYOR_REPO_BRANCH%==x%GIT_TAG% SET PUBLISH_BINARY=true
   # Or look for commit message containing `[publish binary]`
   #- cmd: IF not x%COMMIT_MSG:[publish binary]=%==x%COMMIT_MSG% SET PUBLISH_BINARY=true
-  - cmd: ECHO "Env Var PUBLISH_BINARY:"
+  - cmd: ECHO "PUBLISH_BINARY:"
   - cmd: ECHO %PUBLISH_BINARY%
-
-# to run your custom scripts instead of automatic MSBuild
-build_script:
   - cmd: ECHO "BUILDING:"
   - cmd: npm install --build-from-source
   - cmd: SET PATH=%cd%\node_modules\.bin\;%PATH%
