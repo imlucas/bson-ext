@@ -9,15 +9,12 @@ env:
   - node_pre_gyp_bucket: mongodb-dx-public
   - secure: ER5LYPXeYbQz8IH7IFlEOdiUFhQZ/he6MBiKgAQlUEaY+aF48Ypd9FaXue0R6OPxqBoTVA6rFixdiAZk7U0wB9wTzyABWWUBEmFO7WMbDWfFp4cOTbtHGQREBotYv0vaC8L+qgRDqtM0ASGm8/i8duRM1ICQ7n3N01ezAlMTu8I=
   - secure: hlJfOM3VG9xYFQ+TrGWgIc5H2zowRGJBtIm710Mg5JQ4F6tpz7wzIZ+MpynGOklD8ltuLhUUSmf+doejVzCiRRADqF2ubjTRWafyqfz8p5nESz0ovw4g+rQuOOt3S4FbmKiHCZtoYEqn1N47GIaN06ucakK+rvS2DANgpSwOLPI=
+
 before_script:
-- COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
-- export PATH=./node_modules/.bin/:$PATH
-- npm install node-gyp -g
-- PUBLISH_BINARY=true
-- node-pre-gyp clean
-- node-gyp clean
+  - npm install --build-from-source
+
 script:
-- node-pre-gyp clean
-- npm install --build-from-source
-- npm test
-- node bin/publish-binary-maybe.js
+  - npm test
+
+after_success:
+  - node bin/publish-binary-maybe.js

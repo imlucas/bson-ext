@@ -18,11 +18,16 @@ platform:
   - x64
 
 install:
-  - cmd: npm install --build-from-source
-  - cmd: node bin/publish-binary-maybe.js
+  - ps: Install-Product node $env:nodejs_version
+  - npm install --build-from-source
 
-# on_success:
-#   @todo: publish-binary-maybe.js should actually be here.
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+
+on_success:
+  - node bin/publish-binary-maybe.js
 
 matrix:
   fast_finish: true
@@ -32,6 +37,4 @@ cache:
   - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
   - node_modules -> package.json                                        # local npm modules
 
-test: OFF
-deploy: OFF
 build: OFF
