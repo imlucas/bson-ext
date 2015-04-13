@@ -27,7 +27,7 @@ test_script:
   - npm test
 
 on_success:
-  - node bin/publish-binary-maybe.js
+  - ps: node bin/publish-binary-maybe.js
 
 matrix:
   fast_finish: true
