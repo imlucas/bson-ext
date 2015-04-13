@@ -8,7 +8,6 @@ process.env.node_pre_gyp_bucket = 'mongodb-dx-public';
 process.env.PATH = path.resolve(__dirname + '/../node_modules/.bin') + ':' + process.env.PATH;
 
 var BIN = path.resolve(__dirname, '../node_modules/.bin/node-pre-gyp');
-var NODE = which.sync('node');
 
 var run = function(args, done) {
   if (typeof args === 'function') {
@@ -16,7 +15,7 @@ var run = function(args, done) {
     args = '';
   }
 
-  var cmd = '"' + NODE + '" ' + BIN + ' ' + args;
+  var cmd = BIN + ' ' + args;
 
   exec(cmd, function(err, stdout, stderr) {
     console.log('result of `%s`', cmd, JSON.stringify({
