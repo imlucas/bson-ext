@@ -83,6 +83,8 @@ isAlreadyPublished(function(err, published){
     if(err) return abort(err);
 
     console.log('published binary: %s', state.hosted_tarball);
-    process.exit(0);
+    setTimeout(function(){
+      process.exit(0);
+    }, 500);
   });
 });
