@@ -9,12 +9,12 @@ environment:
     secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
   node_pre_gyp_bucket: mongodb-dx-public
   matrix:
-    - nodejs_version: 0.10
+    # - nodejs_version: 0.10
     - nodejs_version: 0.12
-    - nodejs_version: 1.6
+    # - nodejs_version: 1.6
 
 platform:
-  - x86
+  # - x86
   - x64
 
 install:

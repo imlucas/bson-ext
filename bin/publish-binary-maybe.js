@@ -51,9 +51,17 @@ function isAlreadyPublished(fn){
 }
 
 function publish(fn){
-  run('rebuild package publish', function(err, stdout){
+  run('rebuild', function(err, stdout){
     if(err) return fn(err);
-    fn();
+
+    run('package', function(err, stdout){
+      if(err) return fn(err);
+
+      run('publish', function(err, stdout){
+        if(err) return fn(err);
+        fn();
+      });
+    });
   });
 }
 
