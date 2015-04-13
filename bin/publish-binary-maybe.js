@@ -35,11 +35,15 @@ function publish(fn){
   });
 }
 
-isAlreadyPublished(function(err, published){
-  if(err){
-    console.error(err);
+function abort(err){
+  console.error(err);
+  setTimeout(function(){
     return process.exit(1);
-  }
+  }, 500);
+}
+
+isAlreadyPublished(function(err, published){
+  if(err) return abort(err);
 
   if(published){
     console.log('Already published %s', state.package_name);
@@ -48,12 +52,9 @@ isAlreadyPublished(function(err, published){
 
 
   publish(function(err){
-    if(err){
-      console.error(err);
-      return process.exit(1);
-    }
+    if(err) return abort(err);
 
     console.log('published binary: %s', state.hosted_tarball);
     process.exit(0);
-  })
+  });
 });
