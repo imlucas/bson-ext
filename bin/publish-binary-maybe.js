@@ -2,7 +2,6 @@
 
 var path = require('path');
 var exec = require('child_process').exec;
-var which = require('which');
 
 process.env.node_pre_gyp_bucket = 'mongodb-dx-public';
 process.env.PATH = path.resolve(__dirname + '/../node_modules/.bin') + ':' + process.env.PATH;
@@ -18,11 +17,6 @@ var run = function(args, done) {
   var cmd = BIN + ' ' + args;
 
   exec(cmd, function(err, stdout, stderr) {
-    console.log('result of `%s`', cmd, JSON.stringify({
-      stdout: stdout.toString('utf-8'),
-      stderr: stderr.toString('utf-8')
-    }, null, 2));
-
     if (err) {
       console.error('exec failed: ', err);
       // use setTimeout to get around appveyor missing writes to stderr/stdout
@@ -74,7 +68,7 @@ isAlreadyPublished(function(err, published){
   if(err) return abort(err);
 
   if(published){
-    console.log('Already published %s', state.package_name);
+    console.log('Nothing new to publish.');
     return process.exit(0);
   }
 
@@ -82,7 +76,7 @@ isAlreadyPublished(function(err, published){
   publish(function(err){
     if(err) return abort(err);
 
-    console.log('published binary: %s', state.hosted_tarball);
+    console.log('Published %s', state.hosted_tarball);
     setTimeout(function(){
       process.exit(0);
     }, 500);
