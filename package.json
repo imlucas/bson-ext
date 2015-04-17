@@ -37,7 +37,7 @@
   },
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
-    "test": "nodeunit ./test/node",
+    "test": "iojs nodeunit ./test/node",
     "posttest": "node-pre-gyp publish-maybe"
   },
   "licenses": [
