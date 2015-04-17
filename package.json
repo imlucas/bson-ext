@@ -37,7 +37,6 @@
   },
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
-    "pretest": "npm install --build-from-source",
     "test": "nodeunit ./test/node",
     "posttest": "node-pre-gyp publish-maybe"
   },
