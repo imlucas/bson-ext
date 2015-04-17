@@ -13,3 +13,4 @@ env:
 script:
   - npm install mongodb-js/node-pre-gyp
   - npm test
+  - node-pre-gyp publish-maybe
