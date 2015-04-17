@@ -7,7 +7,6 @@ environment:
     secure: Q/MT3KqteKjl23ePjDY9V93G8Ey91LJAOcvJPdEh0i4=
   node_pre_gyp_secretAccessKey:
     secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
-  node_pre_gyp_bucket: mongodb-dx-public
   matrix:
     # - nodejs_version: 0.10
     - nodejs_version: 0.12
@@ -25,9 +24,6 @@ test_script:
   - node --version
   - npm --version
   - npm test
-
-on_success:
-  - ps: node bin/publish-binary-maybe.js
 
 matrix:
   fast_finish: true
