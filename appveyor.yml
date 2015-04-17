@@ -6,8 +6,8 @@ environment:
   node_pre_gyp_secretAccessKey:
     secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
   matrix:
-    - nodejs_version: 0.10
-    - nodejs_version: 0.12
+    # - nodejs_version: 0.10
+    # - nodejs_version: 0.12
     - nodejs_version: 1.6
 
 platform:
