@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "nan": "~1.7.0",
-    "node-pre-gyp": "mongodb-js/node-pre-gyp"
+    "node-pre-gyp": "mongodb-js/node-pre-gyp",
+    "node-gyp": "TooTallNate/node-gyp"
   },
   "devDependencies": {
     "aws-sdk": "~2.1.20",
