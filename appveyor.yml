@@ -20,16 +20,17 @@ install:
 test_script:
   - node --version
   - npm --version
+  - node -p "process.env"
   - set BASE=%cd%
-  - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
-  - SET PATH=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin;%PATH%
-  - SET PATH=%BASE%\node_modules\.bin;%APPDATA%\npm;%PATH%
-  - npm install mongodb-js/node-gyp
+  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm;
+  - SET PATH=%PATH%;C:\Program Files (x86)\MSBuild\12.0\bin\;
+  - SET PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\;
+  - node -p "process.env"
   - npm install --build-from-source
   - npm test
 
-matrix:
-  fast_finish: true
+# matrix:
+#   fast_finish: true
 
 cache:
   - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
