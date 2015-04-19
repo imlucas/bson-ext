@@ -24,6 +24,7 @@ test_script:
   - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
   - SET PATH=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin;%PATH%
   - SET PATH=%BASE%\node_modules\.bin;%APPDATA%\npm;%PATH%
+  - npm install mongodb-js/node-gyp
   - npm install --build-from-source
   - npm test
 

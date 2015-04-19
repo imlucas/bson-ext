@@ -18,8 +18,9 @@
     "url": "https://github.com/christkv/bson-ext/issues"
   },
   "dependencies": {
-    "nan": "~1.7.0"
-
+    "nan": "~1.7.0",
+    "node-gyp": "mongodb-js/node-gyp",
+    "node-pre-gyp": "mongodb-js/node-pre-gyp"
   },
   "devDependencies": {
     "aws-sdk": "~2.1.20",
@@ -32,7 +33,6 @@
   "engines": {
     "node": ">=0.8.19"
   },
-  "bundledDependencies":["node-pre-gyp"],
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
     "test": "nodeunit ./test/node",
