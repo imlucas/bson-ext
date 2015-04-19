@@ -23,7 +23,7 @@ test_script:
   - npm --version
   - SET BASE=%cd%
   - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
-  - ps: npm install --build-from-source
+  - ps: npm install --msvs=2013 --build-from-source
   - cmd: npm test
 
 # matrix:
