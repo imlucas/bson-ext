@@ -8,7 +8,7 @@ environment:
   matrix:
     # - nodejs_version: 0.10
     # - nodejs_version: 0.12
-    - nodejs_version: 1.6
+    - nodejs_version: "1"
 
 platform:
   # - x86
@@ -22,9 +22,10 @@ test_script:
   - node --version
   - npm --version
   - set BASE=%cd%
-  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
+  - SET PATH=%PATH%;%APPDATA%\npm
+  - SET PATH=%PATH%;%base%\node_modules\.bin
   - npm install --build-from-source --msvs=2013
-  - npm test
+  - node node_modules\nodeunit\bin\nodeunit test\node
 
 # matrix:
 #   fast_finish: true
