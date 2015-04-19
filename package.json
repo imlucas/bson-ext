@@ -32,6 +32,7 @@
   "engines": {
     "node": ">=0.8.19"
   },
+  "bundledDependencies":["node-pre-gyp"],
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
     "test": "nodeunit ./test/node",
