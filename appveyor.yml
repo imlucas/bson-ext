@@ -25,6 +25,7 @@ test_script:
   - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
   - node -p process.env
   - npm install
+  - npm test
 
 # matrix:
 #   fast_finish: true
