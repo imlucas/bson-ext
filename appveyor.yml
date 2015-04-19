@@ -23,7 +23,7 @@ test_script:
   - SET PATH=%PATH%;C:\Program Files (x86)\MSBuild\12.0\bin\;
   - SET PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\;
   - CALL "C:\Program Files (x86)\Microsoft Visual Studio %msvs_toolset%.0\VC\vcvarsall.bat" amd64
-  - npm install
+  - npm install --msvs_version=2012
   - IF NOT %nodejs_version% == 1 npm test
   - IF %nodejs_version% == 1 iojs node_modules\nodeunit\bin\nodeunit ./test/node
 
