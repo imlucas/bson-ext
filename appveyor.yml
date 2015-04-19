@@ -8,20 +8,22 @@ environment:
   matrix:
     # - nodejs_version: 0.10
     # - nodejs_version: 0.12
-    - nodejs_version: "1"
+    - nodejs_version: 1.6
+
+platform:
+  # - x86
+  - x64
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: if($env:nodejs_version -ne "0.8") {Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)}
 
 test_script:
   - node --version
   - npm --version
   - set BASE=%cd%
-  - set PATH=%PATH;Git\bin;%BASE%\node_modules\.bin;%APPDATA%\npm;
-  - npm install --msvs_version=2013
-  - call node-pre-gyp rebuild --msvs=2013
-  - call nodeunit ./test/node
+  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm;
+  - npm install --build-from-source --msvs=2013
+  - npm test
 
 # matrix:
 #   fast_finish: true
