@@ -23,8 +23,8 @@ test_script:
   - npm --version
   - SET BASE=%cd%
   - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
-  - npm install --build-from-source
-  - npm test
+  - ps: npm install --build-from-source
+  - cmd: npm test
 
 # matrix:
 #   fast_finish: true
