@@ -19,12 +19,7 @@ install:
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)
 
 test_script:
-  - node --version
-  - npm --version
-  - SET BASE=%cd%
-  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
-  - npm install --msvs=2013 --build-from-source
-  - npm test
+  - .\test.bat
 
 # matrix:
 #   fast_finish: true
