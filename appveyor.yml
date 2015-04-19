@@ -6,12 +6,12 @@ environment:
   node_pre_gyp_secretAccessKey:
     secure: pF+hGI1d/+HVKL0EWCGY6YxvRZrfQrLoxfG5AqQTLJ9hJZaiRRQTwU8cwL+4IEuW
   matrix:
-    # - nodejs_version: 0.10
-    # - nodejs_version: 0.12
+    - nodejs_version: 0.10
+    - nodejs_version: 0.12
     - nodejs_version: "1"
 
 platform:
-  # - x86
+  - x86
   - x64
 
 install:
@@ -20,8 +20,5 @@ install:
 
 test_script:
   - .\test.bat
-
-# matrix:
-#   fast_finish: true
 
 build: OFF
