@@ -16,12 +16,15 @@ platform:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install --build-from-source
 
 test_script:
   - node --version
   - npm --version
-  -
+  - set BASE=%cd%
+  - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
+  - SET PATH=%BASE%\node_modules\.bin;%APPDATA%\npm;%PATH%
+  - npm install --build-from-source
+  - npm test
 
 matrix:
   fast_finish: true
