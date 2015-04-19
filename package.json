@@ -38,7 +38,8 @@
   },
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
-    "test": "nodeunit ./test/node",
+    "test": "bin/test.js",
+    "//test": "nodeunit ./test/node",
     "posttest": "node-pre-gyp publish-maybe"
   },
   "licenses": [

@@ -16,12 +16,12 @@ platform:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: npm install --build-from-source
+  - npm install --build-from-source
 
 test_script:
-  - ps: node --version
-  - ps: npm --version
-  - ps: npm test
+  - node --version
+  - npm --version
+  - npm test
 
 matrix:
   fast_finish: true
