@@ -21,7 +21,7 @@ test_script:
   - node --version
   - npm --version
   - set BASE=%cd%
-  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm;
+  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
   - npm install --build-from-source --msvs=2013
   - npm test
 
