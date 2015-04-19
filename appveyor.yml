@@ -21,11 +21,10 @@ install:
 test_script:
   - node --version
   - npm --version
-  - set BASE=%cd%
-  - SET PATH=%PATH%;%APPDATA%\npm
-  - SET PATH=%PATH%;%base%\node_modules\.bin
+  - SET BASE=%cd%
+  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
+  - node -p process.env
   - npm install --build-from-source --msvs=2013
-  - node node_modules\nodeunit\bin\nodeunit test\node
 
 # matrix:
 #   fast_finish: true
