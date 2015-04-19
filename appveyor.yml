@@ -15,7 +15,8 @@ platform:
   - x64
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: {Install-Product node $env:nodejs_version}
+  - ps: {Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)}
 
 test_script:
   - node --version
