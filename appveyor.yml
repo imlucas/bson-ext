@@ -18,14 +18,10 @@ test_script:
   - node --version
   - npm --version
   - set BASE=%cd%
-  - set PATH=%PATH:Git\bin;
-  - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm;
-  - SET PATH=%PATH%;C:\Program Files (x86)\MSBuild\12.0\bin\;
-  - SET PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\;
-  - CALL "C:\Program Files (x86)\Microsoft Visual Studio %msvs_toolset%.0\VC\vcvarsall.bat" amd64
-  - npm install --msvs_version=2012
-  - IF NOT %nodejs_version% == 1 npm test
-  - IF %nodejs_version% == 1 iojs node_modules\nodeunit\bin\nodeunit ./test/node
+  - set PATH=%PATH;Git\bin;%BASE%\node_modules\.bin;%APPDATA%\npm;
+  - npm install --msvs_version=2013
+  - call node-pre-gyp rebuild --msvs=2013
+  - call nodeunit ./test/node
 
 # matrix:
 #   fast_finish: true
