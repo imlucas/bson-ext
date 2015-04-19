@@ -24,7 +24,7 @@ test_script:
   - SET BASE=%cd%
   - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
   - node -p process.env
-  - npm install --build-from-source --msvs=2013
+  - npm install
 
 # matrix:
 #   fast_finish: true
