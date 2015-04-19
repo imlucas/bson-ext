@@ -23,15 +23,10 @@ test_script:
   - npm --version
   - SET BASE=%cd%
   - SET PATH=%PATH%;%BASE%\node_modules\.bin;%APPDATA%\npm
-  - ps: npm install --msvs=2013 --build-from-source
-  - cmd: npm test
+  - npm install --msvs=2013 --build-from-source
+  - npm test
 
 # matrix:
 #   fast_finish: true
-
-cache:
-  - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
-  - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
-  - node_modules -> package.json                                        # local npm modules
 
 build: OFF
