@@ -35,7 +35,7 @@
     "node": ">=0.8.19"
   },
   "scripts": {
-    "install": "node-pre-gyp install --fallback-to-build",
+    "install": "node-pre-gyp install --fallback-to-build --verbose",
     "test": "nodeunit ./test/node",
     "posttest": "node-pre-gyp publish-maybe"
   },
